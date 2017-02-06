@@ -59,6 +59,12 @@ body {
 .container .progress{
     height: 8px;
 }
+.container .page-header{
+    margin: 0 0 10px 0;
+}
+.container .page-header h3{
+    margin: 0;
+}
 .container-narrow > hr {
     margin: 30px 0;
 }

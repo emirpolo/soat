@@ -14,15 +14,17 @@
             hasPrev : false,
             hasNext : true,
             prev : '',
-            next : 'Datos Personales',
             change : function(op) {
                this.index += op == 'NEXT' ? 1 : -1;
                this.prev = this.index ? this.options[this.index - 1] : '';
                this.next = this.options[this.index + 1];
+               this.current = this.options[this.index];
                this.hasPrev = !!this.index;
                this.hasNext = this.index != this.options.length - 1;
             }
-        }
+        };
+        vm.wizard.next = vm.wizard.options[1];
+        vm.wizard.current = vm.wizard.options[0];
 
         vm.searchVehicle = function() {
             vm.vehicle.placa = vm.plate;

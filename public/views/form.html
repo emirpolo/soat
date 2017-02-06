@@ -35,6 +35,10 @@
                 <div class="progress-bar progress-bar-striped progress-bar-success" style="width: {{vm.wizard.index >= 4 ? 12 : 0}}%"></div>
             </div>
 
+            <div class="page-header">
+                <h3 ng-bind="vm.wizard.current"></h3>
+            </div>
+
             <!-- Datos del Vehiculo-->
             <form class="form-horizontal" ng-show="vm.wizard.index == 0">
                 <div class="form-group">
