@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  placa: MyString
+  tipo: one
+  subtipo: one
+  valor: 9.99
+  edad: 1
+  fecha_vigencia: 2017-02-06
+  fecha_vencimiento: 2017-02-06
+
+two:
+  placa: MyString
+  tipo: two
+  subtipo: two
+  valor: 9.99
+  edad: 1
+  fecha_vigencia: 2017-02-06
+  fecha_vencimiento: 2017-02-06
