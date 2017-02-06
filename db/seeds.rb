@@ -34,6 +34,6 @@ subtipo = Subtipo.create(subtipo: 'Menos de 5 ton', min: 0, max: 4)
 tiposubtipo = Tiposubtipo.create(tipo: tipo, subtipo: subtipo, edad: edades_2, tasa_co: 14.90, tasa_runt: 1610, valor_prima: 366300)
 subtipo = Subtipo.create(subtipo: 'De 5 a 15 ton', min: 5, max: 15)
 tiposubtipo = Tiposubtipo.create(tipo: tipo, subtipo: subtipo, edad: edades_2, tasa_co: 21.53, tasa_runt: 1610, valor_prima: 592400)
-subtipo = Subtipo.create(subtipo: 'Más de 15 ton', min: 5, max: 15)
+subtipo = Subtipo.create(subtipo: 'Más de 15 ton', min: 16, max: 9999)
 tiposubtipo = Tiposubtipo.create(tipo: tipo, subtipo: subtipo, edad: edades_2, tasa_co: 27.23, tasa_runt: 1610, valor_prima: 669600)
 

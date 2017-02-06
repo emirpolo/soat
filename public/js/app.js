@@ -7,7 +7,8 @@
         $routeProvider
             .when('/', {
                 templateUrl: 'views/form.html',
-                controller: 'MainController'
+                controller: 'SoatController',
+                controllerAs: 'vm'
             })
             .otherwise({
                 redirectTo: '/'
