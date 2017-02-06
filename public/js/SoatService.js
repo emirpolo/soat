@@ -15,7 +15,7 @@
         }
 
         function findVehicle (plate) {
-
+            return $http.get(SERVER + 'vehiculo/' + plate);
         }
 
         function getAllClass(){

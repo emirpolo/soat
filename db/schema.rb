@@ -10,11 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170204164020) do
+ActiveRecord::Schema.define(version: 20170206181529) do
 
   create_table "edads", force: :cascade do |t|
     t.integer  "de"
     t.integer  "hasta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "propietarios", force: :cascade do |t|
+    t.string   "tipo_doc"
+    t.integer  "doc"
+    t.string   "nombres"
+    t.string   "apellidos"
+    t.string   "email"
+    t.string   "tel"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -47,6 +58,22 @@ ActiveRecord::Schema.define(version: 20170204164020) do
     t.index ["edad_id"], name: "index_tiposubtipos_on_edad_id"
     t.index ["subtipo_id"], name: "index_tiposubtipos_on_subtipo_id"
     t.index ["tipo_id"], name: "index_tiposubtipos_on_tipo_id"
+  end
+
+  create_table "vehiculos", force: :cascade do |t|
+    t.string   "placa"
+    t.integer  "tipo_id"
+    t.integer  "subtipo_id"
+    t.decimal  "valor"
+    t.integer  "edad"
+    t.date     "fecha_vigencia"
+    t.date     "fecha_vencimiento"
+    t.integer  "propietario_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["propietario_id"], name: "index_vehiculos_on_propietario_id"
+    t.index ["subtipo_id"], name: "index_vehiculos_on_subtipo_id"
+    t.index ["tipo_id"], name: "index_vehiculos_on_tipo_id"
   end
 
 end
