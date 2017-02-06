@@ -7,9 +7,14 @@
 
     function SoatController(SoatService) {
         var vm = this;
+        vm.vehicle = {};
+
+        vm.searchVehicle = function() {
+            vm.vehicle.placa = vm.plate;
+        }
 
         vm.getClassSufix = function () {
-            return vm.vehicle && ({
+            return vm.vehicle.tipo && ({
                     'CILINDRAJE': 'C.C.',
                     'TONELADAS': 'TON',
                 }[vm.vehicle.tipo.clase]) || '#';
@@ -30,7 +35,6 @@
                         vm.subtype = '';
                         delete vm.vehicle.subtipo;
                     }
-
                 });
         };
 
