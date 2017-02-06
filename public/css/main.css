@@ -14,7 +14,20 @@ body {
 /* Custom page header */
 .header {
     padding-bottom: 10px;
-    border-bottom: 1px solid #e5e5e5;
+    position: relative;
+}
+.header:after {
+    content: ' ';
+    /* border-bottom: solid 1px #a7a3a3; */
+    display: block;
+    width: 200%;
+    position: absolute;
+    left: -50%;
+    height: 104%;
+    bottom: -1px;
+    z-index: -1;
+    box-shadow: 1px 1px 15px rgba(128, 128, 128, 0.27);
+    background: rgb(245, 245, 245);
 }
 .header nav {
     position: relative;
@@ -41,7 +54,7 @@ body {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 900px;
 }
 
 .container-narrow > hr {
