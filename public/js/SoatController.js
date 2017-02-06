@@ -12,6 +12,7 @@
         vm.searchVehicle = function () {
             if (vm.plate)
                 SoatService.findVehicle(vm.plate).then(function (res) {
+                    vm.vehicle = {};
                     vm.vehicle.placa = vm.plate;
                     if (res.data) {
                         vm.vehicle.valor = +res.data.valor;
