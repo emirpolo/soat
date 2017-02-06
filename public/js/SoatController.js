@@ -14,11 +14,9 @@
                 SoatService.findVehicle(vm.plate).then(function (res) {
                     vm.vehicle.placa = vm.plate;
                     if (res.data) {
-                        vm.vehicle.placa = res.data.placa;
                         vm.vehicle.valor = +res.data.valor;
                         vm.vehicle.edad = +res.data.edad;
                         vm.vehicle.tipo = vm.class.filter(function (item) {
-                            console.debug(item.tipo, res.data.tipo);
                             return item.tipo == res.data.tipo.tipo
                         })[0];
                     }
