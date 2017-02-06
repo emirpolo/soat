@@ -8,6 +8,21 @@
     function SoatController(SoatService) {
         var vm = this;
         vm.vehicle = {};
+        vm.wizard = {
+            options : ['Datos del Vehículo', 'Datos Personales', 'Datos de Pago', 'Finalizar'],
+            index : 0,
+            hasPrev : false,
+            hasNext : true,
+            prev : '',
+            next : 'Datos Personales',
+            change : function(op) {
+               this.index += op == 'NEXT' ? 1 : -1;
+               this.prev = this.index ? this.options[this.index - 1] : '';
+               this.next = this.options[this.index + 1];
+               this.hasPrev = !!this.index;
+               this.hasNext = this.index != this.options.length - 1;
+            }
+        }
 
         vm.searchVehicle = function() {
             vm.vehicle.placa = vm.plate;
