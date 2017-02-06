@@ -8,4 +8,7 @@ class Api::SubtipoController < ApplicationController
     render json: Tipo.find(params[:tipo_id]).subtipos.find(params[:id])
   end
 
+  def tarifas
+    render json: Tipo.find(params[:tipo_id]).subtipos.find(params[:id]).tiposubtipos.first
+  end
 end

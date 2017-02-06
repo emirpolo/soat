@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     resources :vehiculo
     resources :tipo do
       resources :subtipo do
+        member do
+            get 'tarifas'
+        end
         resources :edad
       end
     end

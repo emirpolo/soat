@@ -14,9 +14,9 @@ subtipo = Subtipo.create(subtipo: 'Menos de 100 c.c.', min: 0, max: 99)
 tiposubtipo = Tiposubtipo.create(tipo: tipo, subtipo: subtipo, edad: edades, tasa_co: 8.26, tasa_runt: tasaRunt, valor_prima: 203100)
 subtipo = Subtipo.create(subtipo: 'De 100 a 200 c.c.', min: 100, max: 200)
 tiposubtipo = Tiposubtipo.create(tipo: tipo, subtipo: subtipo, edad: edades, tasa_co: 11.09, tasa_runt: tasaRunt, valor_prima: 272700)
-subtipo = Subtipo.create(subtipo: 'Más de 200 c.c.', min: 201, max: 999)
+subtipo = Subtipo.create(subtipo: 'Más de 200 c.c.', min: 201, max: 9999)
 tiposubtipo = Tiposubtipo.create(tipo: tipo, subtipo: subtipo, edad: edades, tasa_co: 12.51, tasa_runt: tasaRunt, valor_prima: 307600)
-subtipo = Subtipo.create(subtipo: 'MOTOCARROS', min: 0, max: 999)
+subtipo = Subtipo.create(subtipo: 'MOTOCARROS', min: 0, max: 9999)
 tiposubtipo = Tiposubtipo.create(tipo: tipo, subtipo: subtipo, edad: edades, tasa_co: 12.51, tasa_runt: tasaRunt, valor_prima: 307600)
 
 tipo = Tipo.create(tipo: 'CAMPEROS Y CAMIONETAS', clase: 'CILINDRAJE', require_edad: true)
@@ -38,3 +38,12 @@ tiposubtipo = Tiposubtipo.create(tipo: tipo, subtipo: subtipo, edad: edades_2, t
 subtipo = Subtipo.create(subtipo: 'Más de 15 ton', min: 16, max: 9999)
 tiposubtipo = Tiposubtipo.create(tipo: tipo, subtipo: subtipo, edad: edades_2, tasa_co: 27.23, tasa_runt: tasaRunt, valor_prima: 669600)
 
+
+
+
+
+
+p = Propietario.create(tipo_doc: 'CC', doc: 1082914399, nombres: 'EMIRO RAFAEL', apellidos: 'ARRIETA POLO', email: 'emiarrie@gmail.com', tel: '3004823331')
+t = Tipo.first
+s = t.subtipos.first
+Vehiculo.create(placa: 'RDE27A', tipo: t, subtipo: s, valor: 90, edad: 10, fecha_vigencia: '2014-02-06', fecha_vencimiento: '2015-02-06', propietario: p)

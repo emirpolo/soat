@@ -3,11 +3,13 @@
 
     angular.module('SoatApp').controller('SoatController', SoatController);
 
-    SoatController.$inject = ['SoatService'];
+    SoatController.$inject = ['SoatService', '$scope'];
 
-    function SoatController(SoatService) {
+    function SoatController(SoatService, $scope) {
         var vm = this;
         vm.vehicle = {};
+        vm.propietario = {};
+        vm.subtypes = [];
 
         vm.searchVehicle = function () {
             if (vm.plate)
@@ -15,11 +17,14 @@
                     vm.vehicle = {};
                     vm.vehicle.placa = vm.plate;
                     if (res.data) {
+                        vm.vehicle = res.data;
                         vm.vehicle.valor = +res.data.valor;
-                        vm.vehicle.edad = +res.data.edad;
+                        vm.subtype = res.data.subtipo.subtipo;
                         vm.vehicle.tipo = vm.class.filter(function (item) {
                             return item.tipo == res.data.tipo.tipo
                         })[0];
+
+                        vm.propietario = res.data.propietario;
                     }
                 });
         };
@@ -31,23 +36,32 @@
                 }[vm.vehicle.tipo.clase]) || '#';
         };
 
-        vm.setSubtype = function () {
+        vm.getSubtype = function () {
             if (vm.vehicle && vm.vehicle.tipo.id)
                 SoatService.getAllSubtypes(vm.vehicle.tipo.id).then(function (res) {
-                    var f = res.data.filter(function (st) {
-                        return vm.vehicle.subtype >= st.min && vm.vehicle.subtype <= st.max;
-                    });
-
-                    if (f.length) {
-                        vm.subtype = f[0].subtipo;
-                        vm.vehicle.subtipo = f[0].id;
-                    }
-                    else {
-                        vm.subtype = '';
-                        delete vm.vehicle.subtipo;
-                    }
+                    vm.subtypes = res.data;
+                    vm.getNameSubtypes();
                 });
         };
+
+        vm.getNameSubtypes = function() {
+            var f =  vm.subtypes.filter(function (st) {
+                console.debug(vm.vehicle.valor, st.min, st.max);
+                return vm.vehicle.valor >= st.min && vm.vehicle.valor <= st.max;
+            });
+            if (f.length) {
+                vm.subtype = f[0].subtipo;
+                vm.vehicle.subtipo = f[0];
+            }
+            else {
+                vm.subtype = '';
+                delete vm.vehicle.subtipo;
+            }
+        }
+
+        $scope.$watch('vm.vehicle.valor', function(){
+            vm.getNameSubtypes();
+        });
 
         /******* WIZARD *******/
         vm.wizard = {
