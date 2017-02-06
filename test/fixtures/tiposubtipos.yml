@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tipo: one
+  subtipo: one
+  edad: one
+  tasa_co: 9.99
+  tasa_runt: 9.99
+  valor_prima: 9.99
+
+two:
+  tipo: two
+  subtipo: two
+  edad: two
+  tasa_co: 9.99
+  tasa_runt: 9.99
+  valor_prima: 9.99
