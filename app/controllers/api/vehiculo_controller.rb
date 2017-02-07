@@ -7,8 +7,9 @@ class Api::VehiculoController < ApplicationController
   def create
     params.permit!
 
-    if params[:propietario][:id]
-      @propietario = Propietario.find(params[:propietario][:id])
+    @propietario = Propietario.find_by_doc(params[:propietario][:tipo_doc], params[:propietario][:doc])[0];
+
+    if @propietario
       @propietario.update!(params[:propietario])
     else
       @propietario = Propietario.new(params[:propietario])

@@ -68,6 +68,8 @@
             data.vehiculo.tipo = data.vehiculo.tipo.id;
             data.vehiculo.subtipo = data.vehiculo.subtipo.id;
             delete data.vehiculo.propietario;
+            delete data.vehiculo.tarifa;
+            delete data.vehiculo.id;
 
             SoatService.buySoat(data).then(function (res) {
 
