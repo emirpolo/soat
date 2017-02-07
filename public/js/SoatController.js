@@ -3,9 +3,9 @@
 
     angular.module('SoatApp').controller('SoatController', SoatController);
 
-    SoatController.$inject = ['SoatService', '$scope'];
+    SoatController.$inject = ['SoatService'];
 
-    function SoatController(SoatService, $scope) {
+    function SoatController(SoatService) {
         var vm = this;
         vm.vehicle = {};
         vm.propietario = {};
@@ -17,6 +17,7 @@
             if (vm.plate)
                 SoatService.findVehicle(vm.plate).then(function (res) {
                     vm.vehicle = {};
+                    vm.propietario = {};
                     vm.vehicle.placa = vm.plate;
                     if (res.data) {
                         vm.vehicle = res.data;
@@ -58,6 +59,19 @@
             }
             else
                 vm.subtype = '';
+        }
+
+        vm.buySoat = function () {
+            var data = {};
+            data.propietario = angular.copy(vm.propietario);
+            data.vehiculo = angular.copy(vm.vehicle);
+            data.vehiculo.tipo = data.vehiculo.tipo.id;
+            data.vehiculo.subtipo = data.vehiculo.subtipo.id;
+            delete data.vehiculo.propietario;
+
+            SoatService.buySoat(data).then(function(res){
+
+            });
         }
 
         /******* WIZARD *******/

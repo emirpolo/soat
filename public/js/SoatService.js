@@ -11,15 +11,16 @@
         return {
             findVehicle: findVehicle,
             getAllClass: getAllClass,
-            getAllSubtypes : getAllSubtypes,
-            getTarifas : getTarifas
+            getAllSubtypes: getAllSubtypes,
+            getTarifas: getTarifas,
+            buySoat: buySoat
         }
 
-        function findVehicle (plate) {
+        function findVehicle(plate) {
             return $http.get(SERVER + 'vehiculo/' + plate);
         }
 
-        function getAllClass(){
+        function getAllClass() {
             return $http.get(SERVER + 'tipo');
         }
 
@@ -29,6 +30,10 @@
 
         function getTarifas(type, subtype) {
             return $http.get(SERVER + 'tipo/' + type + '/subtipo/' + subtype + '/tarifas');
+        }
+
+        function buySoat(data) {
+            return $http.post(SERVER + 'vehiculo', data);
         }
     }
 })();
