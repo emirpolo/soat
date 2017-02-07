@@ -11,7 +11,8 @@
         return {
             findVehicle: findVehicle,
             getAllClass: getAllClass,
-            getAllSubtypes : getAllSubtypes
+            getAllSubtypes : getAllSubtypes,
+            getTarifas : getTarifas
         }
 
         function findVehicle (plate) {
@@ -26,5 +27,8 @@
             return $http.get(SERVER + 'tipo/' + type + '/subtipo');
         }
 
+        function getTarifas(type, subtype) {
+            return $http.get(SERVER + 'tipo/' + type + '/subtipo/' + subtype + '/tarifas');
+        }
     }
 })();
