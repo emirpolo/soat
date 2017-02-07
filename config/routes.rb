@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :tipo do
       resources :subtipo do
         member do
-            get 'tarifas'
+            get 'tarifas/:edad', :action => 'tarifas'
         end
         resources :edad
       end

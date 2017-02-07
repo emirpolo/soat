@@ -48,9 +48,9 @@
                 });
         };
 
-        vm.getNameSubtypes = function() {
-            if(!vm.subtypes.length) return;
-            var f =  vm.subtypes.filter(function (st) {
+        vm.getNameSubtypes = function () {
+            if (!vm.subtypes.length) return;
+            var f = vm.subtypes.filter(function (st) {
                 return vm.vehicle.valor >= st.min && vm.vehicle.valor <= st.max;
             });
             if (f.length) {
@@ -69,7 +69,7 @@
             data.vehiculo.subtipo = data.vehiculo.subtipo.id;
             delete data.vehiculo.propietario;
 
-            SoatService.buySoat(data).then(function(res){
+            SoatService.buySoat(data).then(function (res) {
 
             });
         }
@@ -89,11 +89,15 @@
                 this.hasPrev = !!this.index;
                 this.hasNext = this.index != this.options.length - 1;
 
-                if(this.index == 3) {
-                    SoatService.getTarifas(vm.vehicle.tipo.id, vm.vehicle.subtipo.id).then(function (res) {
-                       vm.tarifas = res.data;
-                       vm.tarifas.fosyga = +vm.tarifas.valor_prima / 2;
-                       vm.tarifas.total = +vm.tarifas.valor_prima + vm.tarifas.fosyga + +vm.tarifas.tasa_runt;
+                if (this.index == 3) {
+                    var edad = vm.vehicle.tipo.require_edad ? vm.vehicle.edad : -1;
+                    SoatService.getTarifas(vm.vehicle.tipo.id, vm.vehicle.subtipo.id, edad).then(function (res) {
+                        vm.tarifas = res.data;
+                        vm.tarifas.fosyga = +vm.tarifas.valor_prima / 2;
+                        vm.tarifas.total = +vm.tarifas.valor_prima + vm.tarifas.fosyga + +vm.tarifas.tasa_runt;
+                        vm.tarifas.ages = !vm.vehicle.tipo.require_edad ?  'N/A' :
+                            ( vm.tarifas.edad.hasta == 9999 ? 'Mayor de ' + vm.tarifas.edad.de :
+                                'De ' + vm.tarifas.edad.de + ' a ' + vm.tarifas.edad.hasta ) + ' Años' ;
                     });
                 }
             }

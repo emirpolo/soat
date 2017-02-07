@@ -28,8 +28,8 @@
             return $http.get(SERVER + 'tipo/' + type + '/subtipo');
         }
 
-        function getTarifas(type, subtype) {
-            return $http.get(SERVER + 'tipo/' + type + '/subtipo/' + subtype + '/tarifas');
+        function getTarifas(type, subtype, edad) {
+            return $http.get(SERVER + 'tipo/' + type + '/subtipo/' + subtype + '/tarifas/' + edad);
         }
 
         function buySoat(data) {
