@@ -1,4 +1,8 @@
 class Api::VehiculoController < ApplicationController
+  def index
+    render json: Vehiculo.list.to_json
+  end
+
   def show
     @vehiculo = Vehiculo.where(placa: params[:id]).last
     render json: @vehiculo
