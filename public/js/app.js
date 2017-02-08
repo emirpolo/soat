@@ -10,6 +10,11 @@
                 controller: 'SoatController',
                 controllerAs: 'vm'
             })
+            .when('/admin', {
+                templateUrl: 'views/list.html',
+                controller: 'AdminController',
+                controllerAs: 'vm'
+            })
             .otherwise({
                 redirectTo: '/'
             });
