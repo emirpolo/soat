@@ -6,6 +6,7 @@
         .factory('SoatService', SoatService);
 
     SoatService.$inject = ['$http'];
+    ModalService.$inject = ['$compile'];
 
     var SERVER = '/api/'
 
@@ -16,11 +17,16 @@
             getAllSubtypes: getAllSubtypes,
             getTarifas: getTarifas,
             buySoat: buySoat,
-            getAllPolizas: getAllPolizas
+            getAllPolizas: getAllPolizas,
+            findVehicleById: findVehicleById
         }
 
         function findVehicle(plate) {
             return $http.get(SERVER + 'vehiculo/' + plate);
+        }
+
+        function findVehicleById(id) {
+            return $http.get(SERVER + 'vehiculo/byid/' + id);
         }
 
         function getAllClass() {
@@ -44,26 +50,38 @@
         }
     }
 
-    function ModalService() {
+    function ModalService($compile) {
+        var tmpl = '<div class="modal fade show out"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close btnClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title"></h4></div><div class="modal-body"></div><div class="modal-footer"><button type="button" class="btn btn-default btnClose" data-dismiss="modal">Cerrar</button></div></div></div></div>';
+
         return {
             alert: alert
         }
 
         function alert(options) {
-            var $modal = $('<div>');
-            $modal.load('../views/modal.html', function(){
-                $('body').append($modal);
-                $modal.modal();
-                $modal.find('.modal-title').text(options.title || 'Info');
-                $modal.find('.modal-body').text(options.msg || 'Not Info');
-                $modal.on('hidden.bs.modal', function(){
-                    $modal.remove();
+            var $modal = $(tmpl).attr('ng-controller', options.controller + (options.controllerAs ? ' as ' + options.controllerAs : ''));
+            $('body').append($modal);
+            $modal.modal();
+            $modal.find('.modal-title').text(options.title || 'Info');
+
+            if(options.body)
+                $modal.find('.modal-body').text(options.body);
+            else if(options.templateUrl)
+                $.get(options.templateUrl, function(data){
+                    $modal.find('.modal-body').html(data);
+                    setTimeout(function () {
+                        $compile($modal)(options.scope);
+                    });
                 });
-                $modal.find('.btnClose').on('click', function(){
-                    $modal.modal('hide');
-                });
-                $modal.find('.modal.fade').addClass('in');
+
+            $modal.on('hidden.bs.modal', function () {
+                $modal.remove();
             });
+            $modal.find('.btnClose').on('click', function () {
+                $modal.modal('hide');
+            });
+            $modal.addClass('in');
+
+            return $modal
         }
     }
 })();

@@ -4,8 +4,11 @@ class Api::VehiculoController < ApplicationController
   end
 
   def show
-    @vehiculo = Vehiculo.where(placa: params[:id]).last
-    render json: @vehiculo
+    render json: Vehiculo.where(placa: params[:id]).last
+  end
+
+  def byid
+    render json: Vehiculo.find(params[:id])
   end
 
   def create
