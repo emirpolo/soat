@@ -83,6 +83,7 @@
             ['propietario', 'tarifa', 'id', 'active'].forEach(function (item) {
                 delete data.vehiculo[item];
             });
+            delete data.propietario.id;
 
             SoatService.buySoat(data).then(function (res) {
                 vm.vehicle = res.data;

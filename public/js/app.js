@@ -19,5 +19,12 @@
                 redirectTo: '/'
             });
     });
+
+    app.controller('AppController', ['$scope', '$location', function($scope, $location){
+        $scope.$on('$locationChangeSuccess', function(){
+            $scope.isAdmin = $location.path() == '/admin';
+            $scope.isLoaded = true;
+        });
+    }]);
 })();
 

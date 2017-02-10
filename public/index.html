@@ -20,10 +20,11 @@
 
 
 <div class="container">
-    <div class="header clearfix">
+    <div class="header clearfix" ng-controller="AppController">
         <nav>
-            <ul class="nav nav-pills pull-right">
-                <li role="presentation"><a href="#">Ingresar</a></li>
+            <ul class="nav nav-pills pull-right" style="display: none;" ng-class="{'show': isLoaded}">
+                <li role="presentation" ng-if="!isAdmin"><a href="#!/admin">Admin</a></li>
+                <li role="presentation" ng-if="isAdmin"><a href="#!/">Inicio</a></li>
             </ul>
         </nav>
         <h3>SOAT
