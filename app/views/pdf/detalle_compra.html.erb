@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8'/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<%
+  re = @vehiculo.tipo.require_edad
+  if re
+    v = Tiposubtipo.tarifas_edad(@vehiculo.tipo.id , @vehiculo.subtipo.id, @vehiculo.edad)[0]
+  else
+    v = Tiposubtipo.tarifas(@vehiculo.tipo.id , @vehiculo.subtipo.id)[0]
+  end
+
+  e = v.edad
+%>
+
+<legend>Detalle de Compra de su Póliza SOAT</legend>
+
+<table class="table table-bordered table-condensed">
+    <tr>
+        <td>Placa</td>
+        <td>Clase</td>
+        <td>Subtipo</td>
+        <td>Edad</td>
+    </tr>
+    <tr>
+        <td><%= @vehiculo.placa %></td>
+        <td><%= @vehiculo.tipo.tipo %></td>
+        <td><%= @vehiculo.subtipo.subtipo %></td>
+        <td><%= re ? e.hasta < 9999 ? "De #{e.de} a #{e.hasta}" : "Mayor a #{e.de}" : 'NA' %></td>
+    </tr>
+</table>
+<% p = @vehiculo.propietario %>
+<table class="table table-bordered table-condensed">
+  <tr>
+    <td>Documento</td>
+    <td>Nombre</td>
+  </tr>
+  <tr>
+    <td><%= p.tipo_doc %> <%= p.doc %></td>
+    <td><%= p.nombres %> <%= p.apellidos %></td>
+  </tr>
+</table>
+
+<table class="table table-bordered table-condensed">
+    <tr>
+        <td>Prima</td>
+        <td>Fosyga (50%)</td>
+        <td>RUNT</td>
+        <td>Total</td>
+    </tr>
+    <tr>
+        <td><%= number_to_currency v.valor_prima  %></td>
+        <td><%= number_to_currency v.valor_prima / 2 %></td>
+        <td><%= number_to_currency v.tasa_runt %></td>
+        <td><b><%= number_to_currency v.valor_prima * 3 / 2 + v.tasa_runt %></b></td>
+    </tr>
+</table>
+
+<table class="table table-bordered table-condensed">
+    <tr>
+        <td>Activo Desde</td>
+        <td>Activo Hasta</td>
+    </tr>
+    <tr>
+        <td><%= @vehiculo.created_at %></td>
+        <td><%= @vehiculo.fecha_vencimiento %></td>
+    </tr>
+</table>
+
+
+<legend>Coberturas</legend>
+<ol>
+    <li>Muerte y gastos funerarios: 750 SMLDV</li>
+    <li>Gastos médicos: 800 SMLDV</li>
+    <li>Incapacidad permanente : 180 SMLDV</li>
+    <li>Gastos de transporte: 10 SMLDV</li>
+</ol>
+
+</body>
+</html>

@@ -1,4 +1,7 @@
 class Api::VehiculoController < ApplicationController
+  include ActionController::MimeResponds
+  include ActionView::Helpers::NumberHelper
+
   def index
     render json: Vehiculo.list.to_json
   end
@@ -9,6 +12,18 @@ class Api::VehiculoController < ApplicationController
 
   def byid
     render json: Vehiculo.find(params[:id])
+  end
+
+  def pdf
+    @vehiculo = Vehiculo.find(params[:id])
+    html = ERB.new(File.open("#{Rails.root}/app/views/pdf/detalle_compra.html.erb").read).result(binding)
+    begin
+      respond_to do |format|
+        format.pdf do
+          send_data WickedPdf.new.pdf_from_string(html), filename: 'products.pdf', type: 'application/pdf', disposition: 'inline'
+        end
+      end
+    end
   end
 
   def create
