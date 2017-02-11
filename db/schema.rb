@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170206181529) do
+ActiveRecord::Schema.define(version: 20170206181021) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "edads", force: :cascade do |t|
     t.integer  "de"
@@ -55,9 +58,9 @@ ActiveRecord::Schema.define(version: 20170206181529) do
     t.decimal  "valor_prima"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["edad_id"], name: "index_tiposubtipos_on_edad_id"
-    t.index ["subtipo_id"], name: "index_tiposubtipos_on_subtipo_id"
-    t.index ["tipo_id"], name: "index_tiposubtipos_on_tipo_id"
+    t.index ["edad_id"], name: "index_tiposubtipos_on_edad_id", using: :btree
+    t.index ["subtipo_id"], name: "index_tiposubtipos_on_subtipo_id", using: :btree
+    t.index ["tipo_id"], name: "index_tiposubtipos_on_tipo_id", using: :btree
   end
 
   create_table "vehiculos", force: :cascade do |t|
@@ -71,9 +74,15 @@ ActiveRecord::Schema.define(version: 20170206181529) do
     t.integer  "propietario_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.index ["propietario_id"], name: "index_vehiculos_on_propietario_id"
-    t.index ["subtipo_id"], name: "index_vehiculos_on_subtipo_id"
-    t.index ["tipo_id"], name: "index_vehiculos_on_tipo_id"
+    t.index ["propietario_id"], name: "index_vehiculos_on_propietario_id", using: :btree
+    t.index ["subtipo_id"], name: "index_vehiculos_on_subtipo_id", using: :btree
+    t.index ["tipo_id"], name: "index_vehiculos_on_tipo_id", using: :btree
   end
 
+  add_foreign_key "tiposubtipos", "edads"
+  add_foreign_key "tiposubtipos", "subtipos"
+  add_foreign_key "tiposubtipos", "tipos"
+  add_foreign_key "vehiculos", "propietarios"
+  add_foreign_key "vehiculos", "subtipos"
+  add_foreign_key "vehiculos", "tipos"
 end
